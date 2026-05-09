@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>TVK ID — Sovereign Digital Identity, Access & Verification Gateway</title>
+  <meta name="description" content="TVK ID is the secure digital identity, wallet-linked profile, access credential, proof-of-presence, and verification gateway for the TVK / SOVRA / Entelekron ecosystem." />
+  <meta property="og:title" content="TVK ID — Sovereign Digital Identity Gateway" />
+  <meta property="og:description" content="Secure digital identity, wallet-linked access, credentials, verification, Q-Presence, EnteleVAULT, and SOVRA-ready identity infrastructure." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#f8fbff" />
+  <link rel="canonical" href="https://id.tvk.group/" />
+
+  <style>
+    :root {
+      --bg: #f8fbff;
+      --ink: #07111f;
+      --muted: #627086;
+      --line: rgba(15,23,42,.12);
+      --blue: #2563eb;
+      --cyan: #06b6d4;
+      --violet: #7c3aed;
+      --emerald: #10b981;
+      --gold: #d6a84f;
+      --dark: #020617;
+      --shadow: 0 28px 90px rgba(15,23,42,.13);
+      --radius: 30px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 8%, rgba(37,99,235,.19), transparent 34rem),
+        radial-gradient(circle at 88% 12%, rgba(6,182,212,.18), transparent 34rem),
+        radial-gradient(circle at 50% 62%, rgba(16,185,129,.11), transparent 42rem),
+        linear-gradient(180deg, #ffffff 0%, #f8fbff 54%, #eef7ff 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(15,23,42,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1200px, calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.78);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 950;
+      letter-spacing: -.05em;
+      font-size: 1.22rem;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      background: conic-gradient(from 180deg, var(--blue), var(--cyan), var(--emerald), var(--violet), var(--blue));
+      box-shadow: 0 16px 42px rgba(37,99,235,.25);
+      position: relative;
+    }
+
+    .brand-mark::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,.92);
+    }
+
+    .brand-mark::after {
+      content: "ID";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 950;
+      font-size: .86rem;
+      letter-spacing: -.08em;
+      text-shadow: 0 2px 12px rgba(0,0,0,.16);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-weight: 750;
+      font-size: .92rem;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-cta {
+      color: white !important;
+      background: var(--dark);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      box-shadow: 0 14px 34px rgba(2,6,23,.17);
+    }
+
+    .language-wrap { position: relative; display: inline-flex; align-items: center; }
+
+    .language-select {
+      appearance: none;
+      -webkit-appearance: none;
+      min-height: 42px;
+      max-width: 150px;
+      padding: 0 38px 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.88);
+      color: var(--ink);
+      font-weight: 850;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .language-wrap::after {
+      content: "⌄";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-55%);
+      color: var(--muted);
+      pointer-events: none;
+      font-weight: 950;
+    }
+
+    .mobile-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: white;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .mobile-toggle span {
+      width: 20px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 999px;
+      transition: .18s;
+    }
+
+    .mobile-menu {
+      display: none;
+      border-top: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(18px);
+    }
+
+    .mobile-menu-inner {
+      width: min(1200px, calc(100% - 40px));
+      margin: 0 auto;
+      display: grid;
+      gap: 10px;
+      padding: 16px 0 22px;
+    }
+
+    .mobile-menu a, .mobile-menu label {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: white;
+      font-weight: 850;
+    }
+
+    .mobile-menu label {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .mobile-menu .language-select { max-width: none; width: 100%; border-radius: 14px; background: var(--bg); }
+
+    body.menu-open .mobile-menu { display: block; }
+    body.menu-open .mobile-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    body.menu-open .mobile-toggle span:nth-child(2) { opacity: 0; }
+    body.menu-open .mobile-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .hero { padding: 96px 0 76px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.06fr .94fr;
+      gap: 54px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      color: var(--muted);
+      font-size: .86rem;
+      font-weight: 900;
+      box-shadow: 0 10px 34px rgba(15,23,42,.07);
+    }
+
+    .pulse {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--emerald);
+      box-shadow: 0 0 0 7px rgba(16,185,129,.14);
+    }
+
+    h1 {
+      margin: 24px 0 18px;
+      font-size: clamp(3.1rem, 8.8vw, 7.6rem);
+      line-height: .86;
+      letter-spacing: -.095em;
+      font-weight: 950;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #020617 4%, var(--blue), var(--cyan), var(--emerald));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      margin: 0 0 22px;
+      max-width: 900px;
+      font-size: clamp(1.36rem, 3vw, 2.45rem);
+      line-height: 1.06;
+      letter-spacing: -.06em;
+      font-weight: 920;
+    }
+
+    .lead {
+      max-width: 780px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.78;
+    }
+
+    .disclosure {
+      margin-top: 20px;
+      max-width: 780px;
+      padding: 14px 16px;
+      border: 1px solid rgba(37,99,235,.22);
+      border-radius: 20px;
+      background: rgba(255,255,255,.72);
+      color: #33516d;
+      font-size: .92rem;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+
+    .btn {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.86);
+      font-weight: 900;
+      transition: .18s;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn.primary {
+      color: white;
+      border: none;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      box-shadow: 0 20px 52px rgba(37,99,235,.25);
+    }
+
+    .id-card {
+      min-height: 560px;
+      border-radius: 42px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 50% 42%, rgba(37,99,235,.23), transparent 15rem),
+        radial-gradient(circle at 76% 18%, rgba(6,182,212,.22), transparent 16rem),
+        radial-gradient(circle at 30% 72%, rgba(16,185,129,.13), transparent 16rem),
+        linear-gradient(180deg, rgba(255,255,255,.86), rgba(238,247,255,.82));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      padding: 26px;
+    }
+
+    .id-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: radial-gradient(circle at center, black, transparent 76%);
+    }
+
+    .identity-orb {
+      position: absolute;
+      left: 50%;
+      top: 42%;
+      width: 320px;
+      height: 320px;
+      transform: translate(-50%, -50%);
+      border-radius: 999px;
+      background:
+        radial-gradient(circle, rgba(255,255,255,.96) 0 18%, transparent 19%),
+        conic-gradient(from 0deg, rgba(37,99,235,.16), rgba(6,182,212,.22), rgba(16,185,129,.14), rgba(124,58,237,.14), rgba(37,99,235,.16));
+      box-shadow: 0 28px 70px rgba(15,23,42,.12);
+      z-index: 1;
+      animation: pulseOrb 5s ease-in-out infinite;
+    }
+
+    @keyframes pulseOrb {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.035); }
+    }
+
+    .identity-orb::before {
+      content: "";
+      position: absolute;
+      inset: 40px;
+      border-radius: 999px;
+      border: 2px dashed rgba(37,99,235,.36);
+      animation: rotate 18s linear infinite;
+    }
+
+    .identity-orb::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 46%;
+      width: 96px;
+      height: 120px;
+      transform: translate(-50%, -50%);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 50% 34%, white 0 16%, transparent 17%),
+        linear-gradient(135deg, var(--blue), var(--cyan));
+      box-shadow: 0 24px 60px rgba(37,99,235,.26);
+    }
+
+    @keyframes rotate { to { transform: rotate(360deg); } }
+
+    .id-node {
+      position: absolute;
+      z-index: 4;
+      width: 76px;
+      height: 76px;
+      border-radius: 25px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 950;
+      letter-spacing: -.04em;
+      box-shadow: 0 24px 60px rgba(15,23,42,.18);
+      border: 1px solid rgba(255,255,255,.42);
+      font-size: .8rem;
+      text-align: center;
+      padding: 8px;
+    }
+
+    .wallet { left: 44px; top: 128px; background: linear-gradient(135deg, var(--blue), var(--cyan)); }
+    .vault { right: 44px; top: 128px; background: linear-gradient(135deg, var(--violet), var(--blue)); }
+    .presence { left: 60px; bottom: 184px; background: linear-gradient(135deg, var(--emerald), var(--cyan)); }
+    .access { right: 60px; bottom: 184px; background: linear-gradient(135deg, var(--dark), var(--blue)); }
+    .core { left: 50%; top: 42%; transform: translate(-50%, -50%); width: 104px; height: 104px; border-radius: 34px; background: linear-gradient(135deg, var(--blue), var(--cyan), var(--emerald)); font-size: .9rem; }
+
+    .float-chip {
+      position: absolute;
+      z-index: 5;
+      padding: 10px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.9);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 850;
+      box-shadow: 0 16px 38px rgba(15,23,42,.10);
+    }
+
+    .chip1 { top: 34px; left: 34px; }
+    .chip2 { top: 74px; right: 34px; }
+    .chip3 { bottom: 146px; left: 46px; }
+
+    .status-card {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 28px;
+      z-index: 6;
+      padding: 22px;
+      border-radius: 26px;
+      color: white;
+      background: rgba(2,6,23,.93);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 22px 60px rgba(2,6,23,.28);
+    }
+
+    .status-card strong { display: block; margin-bottom: 8px; font-size: 1.14rem; letter-spacing: -.04em; }
+    .status-card p { margin: 0; color: #dbeafe; line-height: 1.65; }
+
+    section { padding: 84px 0; }
+    .section-head { max-width: 880px; margin-bottom: 36px; }
+    .kicker {
+      margin-bottom: 12px;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      font-size: .8rem;
+      font-weight: 950;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4.4vw, 4rem);
+      line-height: .98;
+      letter-spacing: -.07em;
+      font-weight: 950;
+    }
+
+    .section-text { margin-top: 18px; color: var(--muted); font-size: 1.02rem; line-height: 1.75; }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .statement {
+      padding: 38px;
+      border-radius: 32px;
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .statement.big { color: white; background: linear-gradient(135deg, var(--blue), var(--cyan)); }
+    .statement h3 { margin: 0 0 16px; font-size: 1.7rem; line-height: 1.08; letter-spacing: -.05em; }
+    .statement p { margin: 0; color: var(--muted); line-height: 1.75; }
+    .statement.big p { color: rgba(255,255,255,.88); }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+    .card {
+      min-height: 232px;
+      padding: 26px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 16px 50px rgba(15,23,42,.08);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 17px;
+      color: var(--blue);
+      font-weight: 950;
+      background: linear-gradient(135deg, rgba(37,99,235,.12), rgba(6,182,212,.12));
+    }
+
+    .card h3 { margin: 0 0 12px; font-size: 1.13rem; letter-spacing: -.035em; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.66; font-size: .96rem; }
+
+    .dark-band {
+      padding: 58px;
+      border-radius: 46px;
+      color: white;
+      background:
+        radial-gradient(circle at top left, rgba(37,99,235,.28), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(6,182,212,.24), transparent 34rem),
+        #020617;
+      box-shadow: var(--shadow);
+    }
+
+    .dark-band p, .dark-band .section-text { color: #dbeafe; opacity: .88; }
+
+    .stack { display: grid; grid-template-columns: .9fr 1.1fr; gap: 28px; align-items: start; }
+    .layers { display: grid; gap: 12px; }
+
+    .layer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.07);
+    }
+
+    .layer span:first-child { font-weight: 900; }
+    .layer span:last-child { color: #93c5fd; font-size: .86rem; font-weight: 850; text-align: right; }
+
+    .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    .process-step {
+      padding: 24px;
+      border-radius: 26px;
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 42px rgba(15,23,42,.07);
+    }
+
+    .process-step strong { display: block; color: var(--blue); margin-bottom: 12px; font-size: .9rem; }
+    .process-step h3 { margin: 0 0 10px; letter-spacing: -.04em; }
+    .process-step p { margin: 0; color: var(--muted); line-height: 1.65; }
+
+    .timeline { display: grid; gap: 16px; }
+
+    .step {
+      display: grid;
+      grid-template-columns: 94px 1fr;
+      gap: 18px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: white;
+      box-shadow: 0 14px 42px rgba(15,23,42,.07);
+    }
+
+    .step strong { color: var(--blue); }
+    .step h3 { margin: 0 0 8px; letter-spacing: -.035em; }
+    .step p { margin: 0; color: var(--muted); line-height: 1.68; }
+
+    .domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 26px; }
+    .domain-card { padding: 20px; border-radius: 22px; background: white; border: 1px solid var(--line); box-shadow: 0 14px 42px rgba(15,23,42,.07); }
+    .domain-card strong { display: block; margin-bottom: 8px; letter-spacing: -.03em; }
+    .domain-card span { color: var(--muted); font-size: .92rem; line-height: 1.55; }
+
+    .cta {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 28px;
+      padding: 58px;
+      border-radius: 44px;
+      color: white;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,.24), transparent 25rem),
+        linear-gradient(135deg, #020617, #1e3a8a 58%, #155e75);
+      box-shadow: var(--shadow);
+    }
+
+    .cta p { color: #dbeafe; line-height: 1.75; opacity: .88; }
+    .cta .btn { color: white; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.18); }
+    .cta .btn.primary { background: linear-gradient(135deg, var(--blue), var(--cyan)); }
+
+    footer { padding: 40px 0 56px; color: var(--muted); font-size: .92rem; }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+    }
+
+    .footer-links { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    @media (max-width: 980px) {
+      .hero-grid, .split, .stack, .cta { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr 1fr; }
+      .process, .domain-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .mobile-toggle { display: inline-flex; }
+      .dark-band, .cta { padding: 34px; border-radius: 32px; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 28px, 1200px); }
+      .hero { padding-top: 56px; }
+      h1 { font-size: clamp(3rem, 17vw, 5rem); }
+      .cards, .process, .domain-grid { grid-template-columns: 1fr; }
+      .actions { flex-direction: column; }
+      .btn { width: 100%; }
+      .step { grid-template-columns: 1fr; }
+      .footer-row { flex-direction: column; }
+      .id-node { width: 58px; height: 58px; border-radius: 20px; font-size: .68rem; }
+      .core { width: 78px; height: 78px; font-size: .72rem; }
+      .identity-orb { width: 242px; height: 242px; }
+      .wallet { left: 28px; top: 145px; }
+      .vault { right: 28px; top: 145px; }
+      .presence { left: 34px; bottom: 200px; }
+      .access { right: 34px; bottom: 200px; }
+      .chip2 { top: 82px; right: 22px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a href="/" class="brand" aria-label="TVK ID home">
+        <span class="brand-mark"></span>
+        <span>TVK ID</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#process">How It Works</a>
+        <a href="#domains">Domains</a>
+        <a href="#ecosystem">Ecosystem</a>
+        <span class="language-wrap">
+          <select class="language-select" aria-label="Select language" data-language-select>
+            <option value="/" selected>🇬🇧 English</option>
+            <option value="/de/">🇩🇪 Deutsch</option>
+            <option value="/tr/">🇹🇷 Türkçe</option>
+            <option value="/fr/">🇫🇷 Français</option>
+            <option value="/es/">🇪🇸 Español</option>
+            <option value="/it/">🇮🇹 Italiano</option>
+            <option value="/ru/">🇷🇺 Русский</option>
+          </select>
+        </span>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </nav>
+
+      <button class="mobile-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-mobile-toggle>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="mobile-menu" data-mobile-menu>
+      <div class="mobile-menu-inner">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#process">How It Works</a>
+        <a href="#domains">Domains</a>
+        <a href="#ecosystem">Ecosystem</a>
+        <label>
+          Language
+          <select class="language-select" aria-label="Select language" data-language-select>
+            <option value="/" selected>🇬🇧 English</option>
+            <option value="/de/">🇩🇪 Deutsch</option>
+            <option value="/tr/">🇹🇷 Türkçe</option>
+            <option value="/fr/">🇫🇷 Français</option>
+            <option value="/es/">🇪🇸 Español</option>
+            <option value="/it/">🇮🇹 Italiano</option>
+            <option value="/ru/">🇷🇺 Русский</option>
+          </select>
+        </label>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="pulse"></span> Sovereign Digital Identity · Wallet Access · Verification Gateway</div>
+          <h1 class="gradient-text">TVK ID</h1>
+          <p class="subtitle">The secure identity passport for the TVK, SOVRA, and Entelekron ecosystem.</p>
+          <p class="lead">
+            TVK ID is the digital identity and access gateway for the TVK ecosystem. It is designed to connect secure user profiles, wallet identity, role-based access, credentials, Q-Presence verification, EnteleVAULT privacy, ChronoSeal proof events, and SOVRA-ready trust infrastructure.
+          </p>
+          <div class="disclosure">
+            TVK ID is a digital identity infrastructure concept. Production identity, KYC, wallet access, biometric, credential, and compliance features require strict privacy engineering, security audits, user consent, legal review, and regulatory alignment.
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="#features">Explore TVK ID →</a>
+            <a class="btn" href="#domains">Domain Strategy</a>
+            <a class="btn" href="#contact">Partner Access</a>
+          </div>
+        </div>
+
+        <aside class="id-card" aria-label="TVK ID sovereign identity visual">
+          <span class="float-chip chip1">Wallet-Linked Identity</span>
+          <span class="float-chip chip2">Access Gateway</span>
+          <span class="float-chip chip3">Credentials · Roles · Proof</span>
+          <div class="identity-orb"></div>
+          <div class="id-node wallet">WALLET</div>
+          <div class="id-node vault">VAULT</div>
+          <div class="id-node presence">PRESENCE</div>
+          <div class="id-node access">ACCESS</div>
+          <div class="id-node core">TVK ID</div>
+          <div class="status-card">
+            <strong>TVK ID / Identity Runtime</strong>
+            <p>Unifying profiles, wallets, credentials, permissions, presence proofs, vault records, and ecosystem access.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container split">
+        <div class="statement big">
+          <h3>TVK ID is the master identity layer for your entire ecosystem.</h3>
+          <p>It can become the login, profile, verification, access, credential, and permission system across TVK Group, TVK Labs, SOVRA, Entelekron, Ava Santé, EnergieMind, Sentient Signals, and future modules.</p>
+        </div>
+        <div class="statement">
+          <h3>Built for identity plus trust</h3>
+          <p>TVK ID is not only a username. It is a structured identity object: profile, wallet, verified role, access rights, proof history, optional presence checks, and private data controls.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Core Features</div>
+          <h2>A secure identity gateway for users, wallets, validators, partners, and ecosystem members.</h2>
+          <p class="section-text">TVK ID is designed as the account and verification layer that connects people, companies, wallets, roles, permissions, credentials, and AI-driven systems.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card"><div class="icon">01</div><h3>Unified TVK Profile</h3><p>One identity profile for ecosystem users, partners, validators, investors, contributors, staff, and project members.</p></article>
+          <article class="card"><div class="icon">02</div><h3>Wallet-Linked Identity</h3><p>Connect EnteleWallet, TVK Wallet, MetaMask-style wallets, and verified ownership events to a secure profile.</p></article>
+          <article class="card"><div class="icon">03</div><h3>Role-Based Access</h3><p>Grant access based on roles such as founder, investor, validator, partner, admin, user, auditor, or contributor.</p></article>
+          <article class="card"><div class="icon">04</div><h3>Q-Presence Verification</h3><p>Optional presence, liveness, biometric, or contextual checks for sensitive actions where legally permitted.</p></article>
+          <article class="card"><div class="icon">05</div><h3>EnteleVAULT Privacy</h3><p>Store credentials, private records, KYC states, certificates, and documents in a secure vault structure.</p></article>
+          <article class="card"><div class="icon">06</div><h3>ChronoSeal Proof</h3><p>Timestamp and seal identity events, access approvals, wallet bindings, credential updates, and permission changes.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">How It Works</div>
+          <h2>From identity claim to verified ecosystem access.</h2>
+          <p class="section-text">TVK ID follows a secure identity flow: create, verify, bind, permission, and prove.</p>
+        </div>
+
+        <div class="process">
+          <div class="process-step"><strong>Step 01</strong><h3>Create</h3><p>User or partner creates a TVK ID profile with basic identity and ecosystem purpose.</p></div>
+          <div class="process-step"><strong>Step 02</strong><h3>Verify</h3><p>Verification level is assigned using email, wallet, documents, KYC, Q-Presence, or manual approval.</p></div>
+          <div class="process-step"><strong>Step 03</strong><h3>Bind</h3><p>Wallets, roles, credentials, permissions, and vault records are linked to the identity profile.</p></div>
+          <div class="process-step"><strong>Step 04</strong><h3>Access</h3><p>TVK ID grants controlled access to apps, dashboards, investor areas, validator tools, and ecosystem services.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="domains">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Domain Strategy</div>
+          <h2>Recommended naming direction for TVK ID.</h2>
+          <p class="section-text">Because tvkid.com is taken and “TVK ID” can be confused with unrelated TVK brands, the strongest strategy is to use an official TVK subdomain now and buy one clean standalone identity domain later.</p>
+        </div>
+
+        <div class="domain-grid">
+          <div class="domain-card"><strong>id.tvk.group</strong><span>Best official choice now. Corporate, clean, trusted, and already inside the TVK Group identity system.</span></div>
+          <div class="domain-card"><strong>id.tvklabs.com</strong><span>Best technical/labs choice for authentication, developers, SOVRA apps, and internal identity infrastructure.</span></div>
+          <div class="domain-card"><strong>tvkidentity.com</strong><span>Best standalone brand if available. Clearer than TVKID and professional for public identity services.</span></div>
+          <div class="domain-card"><strong>tvkpass.com</strong><span>Short, memorable, and excellent for login, access, membership, investor, and validator portal use.</span></div>
+          <div class="domain-card"><strong>tvkauth.com</strong><span>Strong technical domain for authentication APIs, OAuth-style login, and app integration.</span></div>
+          <div class="domain-card"><strong>tvkverify.com</strong><span>Good for verification, KYC, proof-of-presence, compliance checks, and credential confirmation.</span></div>
+          <div class="domain-card"><strong>tvkprofile.com</strong><span>Good user-facing identity profile name for public accounts and ecosystem memberships.</span></div>
+          <div class="domain-card"><strong>tvklogin.com</strong><span>Simple and easy for users, but less premium than TVK Identity or TVK Pass.</span></div>
+          <div class="domain-card"><strong>mytvkid.com</strong><span>Works if you want to preserve TVK ID wording, but I prefer TVK Pass or TVK Identity.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ecosystem">
+      <div class="container">
+        <div class="dark-band stack">
+          <div>
+            <div class="kicker">SOVRA / Entelekron Ecosystem</div>
+            <h2>The identity gateway connecting the full TVK ecosystem.</h2>
+            <p class="section-text">TVK ID connects people, wallets, roles, permissions, credentials, apps, dashboards, validators, proof events, and AI agents across TVK Group and the full SOVRA / Entelekron infrastructure.</p>
+          </div>
+          <div class="layers">
+            <div class="layer"><span>TVK Group</span><span>Corporate Identity · Staff · Partners</span></div>
+            <div class="layer"><span>TVK Labs</span><span>Developer Access · Apps · APIs</span></div>
+            <div class="layer"><span>SOVRA</span><span>AI Agents · Reasoning · Permissions</span></div>
+            <div class="layer"><span>Entelekron</span><span>Validators · Governance · ENK</span></div>
+            <div class="layer"><span>EnteleWallet</span><span>Wallet Binding · Signatures</span></div>
+            <div class="layer"><span>EnteleVAULT</span><span>Credentials · Private Records</span></div>
+            <div class="layer"><span>Q-Presence</span><span>Presence · Liveness · Access Proof</span></div>
+            <div class="layer"><span>ChronoSeal</span><span>Timestamped Identity Events</span></div>
+            <div class="layer"><span>GraphVAULT</span><span>Identity Graph · Event History</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Roadmap</div>
+          <h2>From TVK login page to sovereign identity infrastructure.</h2>
+        </div>
+
+        <div class="timeline">
+          <div class="step"><strong>Phase 01</strong><div><h3>Brand & Domain Foundation</h3><p>Launch TVK ID landing page under id.tvk.group or id.tvklabs.com, secure main standalone domain, and define identity levels.</p></div></div>
+          <div class="step"><strong>Phase 02</strong><div><h3>Profile & Wallet Binding</h3><p>Create user profiles, wallet verification, role assignments, investor access, validator access, and dashboard permissions.</p></div></div>
+          <div class="step"><strong>Phase 03</strong><div><h3>Vault & Presence Integration</h3><p>Connect EnteleVAULT for credentials and Q-Presence for sensitive verification and secure access events.</p></div></div>
+          <div class="step"><strong>Phase 04</strong><div><h3>SOVRA Identity Runtime</h3><p>Allow SOVRA agents and apps to reason over permissions, verification levels, proof history, and ecosystem identity context.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <div class="kicker">TVK ID Network</div>
+            <h2>Build the official identity gateway for the TVK ecosystem.</h2>
+            <p>For identity providers, wallet builders, KYC partners, authentication developers, enterprise security teams, validator operators, and SOVRA / Entelekron ecosystem collaborators.</p>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="mailto:id@tvk.group">Contact TVK ID</a>
+            <a class="btn" href="https://www.tvk.group/">TVK Group</a>
+            <a class="btn" href="https://www.sovra.network/">SOVRA Network</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>© 2026 TVK ID | Sovereign Digital Identity Gateway for TVK Group, SOVRA & Entelekron.</div>
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/disclaimer.html">Disclaimer</a>
+        <a href="https://www.tvk.group/">TVK Group</a>
+        <a href="https://www.sovra.network/">SOVRA</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const mobileToggle = document.querySelector('[data-mobile-toggle]');
+    const mobileMenu = document.querySelector('[data-mobile-menu]');
+    const languageSelects = document.querySelectorAll('[data-language-select]');
+
+    if (mobileToggle && mobileMenu) {
+      mobileToggle.addEventListener('click', () => {
+        const isOpen = document.body.classList.toggle('menu-open');
+        mobileToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      mobileMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          document.body.classList.remove('menu-open');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    languageSelects.forEach((select) => {
+      select.addEventListener('change', (event) => {
+        const target = event.target.value;
+        if (target) window.location.href = target;
+      });
+    });
+  </script>
+</body>
+</html>
