@@ -1,0 +1,8 @@
+{
+  "entity":"EnteleBANK LTD",
+  "canonicalUrl":"https://www.entelebank.com",
+  "relationship":"TVK ID is a separate TVK Group ecosystem identity technology project. It may be evaluated as a future identity capability for EnteleBANK, but it is not currently an EnteleBANK onboarding, KYC or authentication service.",
+  "bankStatus":"EnteleBANK is a proposed UK banking institution in pre-authorisation development and is not currently authorised by the PRA or FCA to accept deposits or provide regulated banking services.",
+  "boundary":"A TVK ID profile or credential does not create an EnteleBANK customer relationship, bank account, completed regulatory identity check or entitlement to a banking product.",
+  "futureIntegration":"Any future bank use requires defined identity assurance, consent, privacy, data governance, accessibility, fraud controls, auditability, fallback processes and regulated-entity accountability."
+}
